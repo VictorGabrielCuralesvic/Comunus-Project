@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^4.17.21",
+    "eslint": "^9.2.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.2.0",
+    "nodemon": "^3.1.0",
+    "prisma": "^5.13.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.9.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.13.0",
+    "bcrypt": "^5.1.1",
+    "express": "^4.19.2"
+  }
+}
