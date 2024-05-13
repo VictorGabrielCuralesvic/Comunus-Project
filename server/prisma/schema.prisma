@@ -9,6 +9,73 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int      @id @default(autoincrement())
+  name           String
+  email          String   @unique
+  password       String
+  firstName      String?
+  lastName       String?
+  profilePicture String?
+  interests      String
+  createdAt      DateTime @default(now())
+
+  followers   UserFollowers[] @relation("followers")
+  following   UserFollowers[] @relation("following")
+  discussions Forum[]         @relation("discussion")
+  comments    Comment[]       @relation("comment")
+  resources   Resource[]      @relation("resource")
+  bookmarks   Resource[]      @relation("bookmarks")
+}
+
+model Forum {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  reposts   String
+  createdAt DateTime @default(now())
+
+  author   User      @relation("discussion", fields: [authorId], references: [id])
+  authorId Int
+  comments Comment[] @relation("comment")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+
+  author       User  @relation("comment", fields: [authorId], references: [id])
+  authorId     Int
+  discussion   Forum @relation("comment", fields: [discussionId], references: [id])
+  discussionId Int
+}
+
+model Resource {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  type      String
+  createdAt DateTime @default(now())
+
+  author   User @relation("resource", fields: [authorId], references: [id])
+  authorId Int
+
+  bookmarks User[] @relation("bookmarks")
+}
+
+model UserFollowers {
+  id Int @id @default(autoincrement())
+
+  follower   User @relation("followers", fields: [followerId], references: [id])
+  followerId Int
+
+  following   User @relation("following", fields: [followingId], references: [id])
+  followingId Int
+
+  @@unique([followerId, followingId])
 }
