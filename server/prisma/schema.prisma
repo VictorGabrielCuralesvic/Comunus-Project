@@ -36,7 +36,6 @@ model Forum {
   id        Int      @id @default(autoincrement())
   title     String
   content   String
-  reposts   String
   createdAt DateTime @default(now())
 
   author   User      @relation("discussion", fields: [authorId], references: [id])
