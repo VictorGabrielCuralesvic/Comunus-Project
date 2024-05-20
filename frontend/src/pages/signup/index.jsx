@@ -94,15 +94,8 @@ export default function Login() {
 
       {/* Right side - Title and paragraph */}
 
-      <div className="flex-1 flex flex-col justify-center items-center w-full md:w-2/4 h-screen bg-gradient-to-r from-purple-700 to-purple-900 text-white p-8 rounded">
+      <div className="flex-1 flex flex-col justify-center items-center w-full md:w-2/4 h-screen bg-gradient-to-r from-[#70b873] to-[#3a7f3d] text-white p-8 rounded">
         <div className="flex flex-col w-2/3 justify-center items-start">
-          <Image
-            src="/stars.png"
-            alt="Stars"
-            className="float-left mr-4"
-            width={100}
-            height={100}
-          />
           <div>
             <h1 className="text-6xl mb-4">Create your own NFT</h1>
             <p>Create an account and get your vehicle's NFT.</p>
