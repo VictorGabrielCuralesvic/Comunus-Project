@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../utils/prisma";
-import { hash } from "bcryptjs";
+import { hash } from "bcrypt";
 
 export class UserController {
     async index(req: Request, res: Response) {
