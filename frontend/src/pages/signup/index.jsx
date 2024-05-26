@@ -16,7 +16,7 @@ export default function Login() {
     console.log(name, email, password);
     if (!validatePassword(password)) {
       setPasswordError(
-        "Password must include at least one number, one lowercase letter, one uppercase letter, one special symbol, and be between 8-50 characters."
+        "Senha deve incluir pelo menos um número, uma letra minúscula, uma letra maiúscula, um símbolo especial e conter entre 8-50 caracteres."
       );
       return;
     } else {
@@ -36,15 +36,15 @@ export default function Login() {
       {/* Left side - Inputs */}
       <div className="max-w-3/4 md:w-2/4 h-screen mr-4 flex flex-col justify-center items-center">
         <div className="max-w-3/4 md:w-2/4">
-          <h1 className="text-2xl font-bold mb-4">Sign up</h1>
+          <h1 className="text-2xl font-bold mb-4">Cadastre-se</h1>
 
           <div className="mb-4">
-            <p className="text-terciary">Name*</p>
+            <p className="text-terciary">Nome*</p>
             <input
               type="text"
               id="name"
               className="form-input mt-1 block w-full border border-gray-300 rounded-md px-4 py-2"
-              placeholder="Enter your name"
+              placeholder="Insira seu nome"
               onChange={(e) => setName(e.target.value)}
               required
             />
@@ -56,19 +56,19 @@ export default function Login() {
               type="email"
               id="email"
               className="form-input mt-1 block w-full border border-gray-300 rounded-md px-4 py-2"
-              placeholder="Enter your email"
+              placeholder="Insira seu email"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
           <div className="mb-6">
-            <p className="text-terciary">Password*</p>
+            <p className="text-terciary">Senha*</p>
             <input
               type="password"
               id="password"
               className="form-input mt-1 block w-full border border-gray-300 rounded-md px-4 py-2"
-              placeholder="Create a password"
+              placeholder="Crie uma senha segura"
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordError && (
@@ -80,10 +80,10 @@ export default function Login() {
             <button
               className="bg-primary hover:bg-primaryDark text-white font-bold py-2 px-4 rounded w-full"
               onClick={() => submitForm()}>
-              Get started
+              Entrar
             </button>
             <p className="text-terciary mt-8">
-              Already have an account?{" "}
+              Já possui uma conta?{" "}
               <Link href="/" className="text-primary">
                 Log in
               </Link>
@@ -97,8 +97,8 @@ export default function Login() {
       <div className="flex-1 flex flex-col justify-center items-center w-full md:w-2/4 h-screen bg-gradient-to-r from-[#70b873] to-[#3a7f3d] text-white p-8 rounded">
         <div className="flex flex-col w-2/3 justify-center items-start">
           <div>
-            <h1 className="text-6xl mb-4">Create your own NFT</h1>
-            <p>Create an account and get your vehicle's NFT.</p>
+            <h1 className="text-6xl mb-4">Bem vindos ao <i>Communis</i></h1>
+            <p>A rede social de Pais e Mães.</p>
           </div>
         </div>
       </div>

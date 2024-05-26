@@ -25,7 +25,7 @@ const Header = () => {
           {showDropdown && (
             <div className="absolute top-12 right-0 bg-white border border-gray-200 p-2 rounded shadow-lg">
               <button className="whitespace-nowrap" onClick={handleLogout}>Log out</button>
-              <button className="whitespace-nowrap" onClick={handleProfile}>My profile</button>
+              <button className="whitespace-nowrap" onClick={handleProfile}>Meu Perfil</button>
             </div>
           )}
         </div>
