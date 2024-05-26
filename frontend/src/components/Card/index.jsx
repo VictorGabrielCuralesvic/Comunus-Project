@@ -8,10 +8,10 @@ const Card = () => {
         <span className="text-pink-500">&#10084;</span> {/* ícone de coração */}
       </div>
       <h3 className="text-lg font-semibold text-gray-800 mb-2">
-        O que é linguagem de programação? Conheça as principais
+        Compartilhe e Conecte: Encontre Apoio para a Jornada da Parentalidade!
       </h3>
       <p className="text-gray-600">
-        Uma das mais populares vertentes da tecnologia da informação, a área de programação segue tendo muita demanda de trabalho justamente pela velocidade com que dispositivos tecnológicos vêm avançando.
+        🌟 Queridos pais e mães, esta é a sua comunidade de apoio! Sejam bem-vindos a um espaço onde os desafios da parentalidade são compartilhados, compreendidos e superados juntos.
       </p>
     </div>
   );
