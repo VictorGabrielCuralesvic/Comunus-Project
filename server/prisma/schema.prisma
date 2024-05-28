@@ -59,6 +59,7 @@ model Resource {
   title     String
   content   String
   type      String
+  url       String?
   createdAt DateTime @default(now())
 
   author   User @relation("resource", fields: [authorId], references: [id])
