@@ -24,12 +24,12 @@ router.post("/foruns", AuthMiddleware, forumController.create);
 router.get("/foruns", forumController.list);
 
 // comments routes
-router.post("/comments", AuthMiddleware, commentsController.create);
+router.post("/comments/:discussionId", AuthMiddleware, commentsController.create);
 router.get("/comments/:discussionId", commentsController.list);
 
 // follower routes
-router.post("/follow", followerController.follow);
-router.post("/unfollow", followerController.unfollow);
+router.post("/follow/:followingId", AuthMiddleware, followerController.follow);
+router.delete("/unfollow/:followingId", AuthMiddleware, followerController.unfollow);
 router.get("/followers/:userId", followerController.listFollowers);
 router.get("/following/:userId", followerController.listFollowing);
 

@@ -3,18 +3,21 @@ import prisma from "../utils/prisma";
 
 export class CommentsController {
     async create(req: Request, res: Response) {
-        const { content, authorId, discussionId} = req.body;
+        const { content } = req.body;
+        const discussionId = parseInt(req.params.discussionId);
+        const authorId = parseInt(req.headers['userId'] as string);
 
         try {
             const comment = await prisma.comment.create({
                 data: {
                     content,
-                    authorId,
-                    discussionId
+                    discussionId,
+                    authorId
                 }
             });
             return res.json({ comment });
         } catch (error) {
+            console.error(error);
             return res.status(400).json({ error: "Error creating comment" });
         }
     }

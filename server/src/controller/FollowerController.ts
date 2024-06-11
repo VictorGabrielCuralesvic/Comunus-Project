@@ -3,9 +3,10 @@ import prisma from "../utils/prisma";
 
 export class FollowerController {
     async follow(req: Request, res: Response) {
-        const { followerId, followingId } = req.body;
+        const { followingId } = req.params;
+        const followerId = parseInt(req.headers['userId'] as string);
 
-        if (followerId == followingId) {
+        if (followerId == parseInt(followingId)) {
             return res.status(400).json({ error: "Users cannot follow themselves"} );
         }
 
@@ -13,7 +14,7 @@ export class FollowerController {
             where: {
                 followerId_followingId: {
                     followerId,
-                    followingId
+                    followingId: parseInt(followingId)
                 }
             }
         });
@@ -25,7 +26,7 @@ export class FollowerController {
         const follow = await prisma.userFollowers.create({
             data: {
                 followerId,
-                followingId
+                followingId: parseInt(followingId)
             }
         });
 
@@ -33,13 +34,14 @@ export class FollowerController {
     }
 
     async unfollow(req: Request, res: Response) {
-        const { followerId, followingId } = req.body;
+        const { followingId } = req.params;
+        const followerId = parseInt(req.headers['userId'] as string);
 
         const follow = await prisma.userFollowers.findUnique({
             where: {
                 followerId_followingId: {
                     followerId,
-                    followingId
+                    followingId: parseInt(followingId)
                 }
             }
         });

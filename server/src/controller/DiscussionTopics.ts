@@ -3,7 +3,8 @@ import prisma from "../utils/prisma";
 
 export class ForumController {
     async create(req: Request, res: Response) {
-        const { title, content, authorId } = req.body;
+        const { title, content } = req.body;
+        const authorId = parseInt(req.headers['userId'] as string);
 
         try {
             const forum = await prisma.forum.create({
@@ -11,7 +12,7 @@ export class ForumController {
                     title,
                     content,
                     authorId
-                }
+                }   
             });
             return res.json({forum});
         } catch (error) {
