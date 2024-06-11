@@ -11,6 +11,7 @@ const followerController = new FollowerController();
 
 export const router = Router();
 
+// authentic
 router.post("/createuser", userController.store)
 router.get("/users", userController.index)
 
@@ -27,3 +28,9 @@ router.post("/follow", followerController.follow);
 router.post("/unfollow", followerController.unfollow);
 router.get("/followers/:userId", followerController.listFollowers);
 router.get("/following/:userId", followerController.listFollowing);
+
+// user routes
+router.get("/user/:userId", userController.show);
+router.get("/user/:userId/discussions", userController.getUserDiscussion);
+router.get("/user/:userId/comments", userController.getUserComments);
+router.get("/user/:userId/resources", userController.getUserResources);
