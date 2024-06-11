@@ -5,12 +5,14 @@ import { AuthMiddleware } from '../middlewares/auth';
 import { ForumController } from '../controller/DiscussionTopics';
 import { CommentsController } from '../controller/CommentController';
 import { FollowerController } from '../controller/FollowerController';
+import { BookmarkController } from '../controller/BookMarkController';
 
 const userController = new UserController();
 const authController = new AuthController();
 const forumController = new ForumController();
 const commentsController = new CommentsController();
 const followerController = new FollowerController();
+const bookmarkController = new BookmarkController();
 
 export const router = Router();
 
@@ -38,3 +40,8 @@ router.get("/user/:userId", userController.show);
 router.get("/user/:userId/discussions", userController.getUserDiscussion);
 router.get("/user/:userId/comments", userController.getUserComments);
 router.get("/user/:userId/resources", userController.getUserResources);
+
+// bookmark routes
+router.post("/bookmarks/:resourceId", AuthMiddleware, bookmarkController.addBookmark);
+router.delete("/bookmarks/:resourceId", AuthMiddleware, bookmarkController.removeBookmark);
+router.get("/bookmarks", AuthMiddleware, bookmarkController.listBookmarks);
