@@ -4,6 +4,7 @@ import Link from "next/link";
 import "tailwindcss/tailwind.css";
 import { useRouter } from "next/router";
 import { api } from "../../services/api"; // Importa o módulo para fazer requisições
+import Cookies from "js-cookie"; // Importa js-cookie
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -25,6 +26,9 @@ export default function Login() {
     try {
       const response = await api.post("/createuser", data);
       console.log(response.data);
+      // Armazena o email e senha nos cookies
+      Cookies.set("email", email);
+      Cookies.set("password", password);
       router.push("/");
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error);

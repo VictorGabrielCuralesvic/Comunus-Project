@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
+import Cookies from 'js-cookie';
 import "tailwindcss/tailwind.css";
 
 export default function Dashboard() {
@@ -25,7 +26,7 @@ export default function Dashboard() {
   const fetchPosts = async () => {
     try {
       const response = await axios.get("http://localhost:5000/foruns");
-      setPosts(response.data.foruns); // Ajuste para pegar o array 'foruns' do response.data
+      setPosts(response.data.foruns);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
@@ -36,10 +37,22 @@ export default function Dashboard() {
       const postData = {
         title,
         content,
-        authorId: 1  // authorId está sendo definido como estático (1) conforme solicitado
+        authorId: 1
       };
 
-      const response = await axios.post("http://localhost:5000/foruns", postData);
+      const token = Cookies.get("token");
+
+      if (!token) {
+        console.error("Token not found in cookies.");
+        return;
+      }
+
+      const response = await axios.post("http://localhost:5000/foruns", postData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
       console.log("Post created successfully:", response.data);
       fetchPosts();
       closeModal();
@@ -73,7 +86,7 @@ export default function Dashboard() {
               key={post.id}
               title={post.title}
               content={post.content}
-              createdAt={post.createdAt} // Passando a data createdAt como prop
+              createdAt={post.createdAt}
             />
           ))
         ) : (
