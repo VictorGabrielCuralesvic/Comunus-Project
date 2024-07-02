@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Card from '../../components/Card';
+import Header from '../../components/Header';
 import "tailwindcss/tailwind.css";
-import Card from "../../components/Card";
-import Header from "../../components/Header";
 
 export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -12,6 +20,32 @@ export default function Dashboard() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/foruns");
+      setPosts(response.data.foruns); // Ajuste para pegar o array 'foruns' do response.data
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  const createPost = async () => {
+    try {
+      const postData = {
+        title,
+        content,
+        authorId: 1  // authorId está sendo definido como estático (1) conforme solicitado
+      };
+
+      const response = await axios.post("http://localhost:5000/foruns", postData);
+      console.log("Post created successfully:", response.data);
+      fetchPosts();
+      closeModal();
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
   };
 
   return (
@@ -33,7 +67,18 @@ export default function Dashboard() {
       </div>
 
       <div className="max-w-screen-xl w-full mt-16 md:mt-0">
-        <Card />
+        {Array.isArray(posts) && posts.length > 0 ? (
+          posts.map((post) => (
+            <Card
+              key={post.id}
+              title={post.title}
+              content={post.content}
+              createdAt={post.createdAt} // Passando a data createdAt como prop
+            />
+          ))
+        ) : (
+          <p>Nenhum post encontrado.</p>
+        )}
       </div>
 
       {/* Modal */}
@@ -79,6 +124,8 @@ export default function Dashboard() {
                         id="title"
                         className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         placeholder="Título do Post"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                       />
                     </div>
                     <div className="mt-5">
@@ -94,6 +141,8 @@ export default function Dashboard() {
                         rows="3"
                         className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md"
                         placeholder="Conteúdo do Post"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
                       ></textarea>
                     </div>
                   </div>
@@ -101,7 +150,7 @@ export default function Dashboard() {
               </div>
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
-                  onClick={closeModal}
+                  onClick={createPost}
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                 >
