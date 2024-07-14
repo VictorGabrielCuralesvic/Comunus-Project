@@ -84,6 +84,7 @@ export default function Dashboard() {
           posts.map((post) => (
             <Card
               key={post.id}
+              id={post.id}
               title={post.title}
               content={post.content}
               createdAt={post.createdAt}
