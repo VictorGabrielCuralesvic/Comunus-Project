@@ -16,7 +16,7 @@ export class ResourceController {
                     content,
                     type,
                     url: file ? `uploads/${file.filename}` : null,
-                    authorId
+                    authorId: parseInt(authorId, 10)
                 }
             });
             console.log(req.file);
